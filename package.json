@@ -1,4 +1,11 @@
 {
+  "name": "karma-typescript-webpack-boilerplate",
+  "author": {
+    "name": "Patrick Assoa Adou",
+    "email": "kanian77@gmail.com"
+  },
+  "version": "1.0.0",
+  "description": "",
   "scripts": {
     "compile": "tsc --build tsconfig.json",
     "test": "npm run compile && karma start tests/karma.conf.js"
