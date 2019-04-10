@@ -1,4 +1,4 @@
-##Instructions
+# Instructions
 
 - 1 make app folder
   ** mkdir [folder name]
@@ -125,16 +125,14 @@ module.exports = function(config) {
     });
 };
 ```
-follow tutorial here on configuring webpack to work with karma: http://bit.ly/2WW0sB6
+Follow tutorial here on configuring webpack to work with karma: http://bit.ly/2WW0sB6
 
-- 12 Make sure the path to the chrome binary is set in an environment variable
-  \*\* Add to ~/.bashrc
+- 12 Make sure the path to the chrome binary is set in an environment variable. Add to ~/.bashrc
 
 ```export CHROME_BIN = '/usr/bin/chromium-browser
     export PATH=$PATH:$CHROME_BIN
 ```
-
-\*\* Save and on the terminal do
+ Save and on the terminal do
 
 ```
 . ~/.bashrc

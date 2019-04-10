@@ -1,5 +1,6 @@
 const UniqueInOrder = class {
   order (iterable: number[] | String) : number[] | string[] {
+    console.log("ordering")
     let previous : number | string = undefined;
     let myArray;
     if(typeof iterable === 'string'){
