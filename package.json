@@ -7,8 +7,6 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "compile": "tsc --build tsconfig.json",
-    "test": "npm run compile && karma start tests/karma.conf.js",
     "watch": "grunt watch"
   },
   "dependencies": {},

@@ -51,6 +51,7 @@
 ```
 npm install -D typescript karma-cli karma-sourcemap-loader webpack karma-webpack babel/core@^7.0.0 babel-loader@8.0.0 karma-chrome-launcher
 ```
+
 - 9 Create webpack.config.js file
 
 ```
@@ -68,7 +69,9 @@ module.exports = {
   mode: "development"
 };
 ```
+
 - 10 create entry point for webpack in dist folder; call it metabundle.js
+
 ```
 var context = require.context('.', true, /.+\.jsx?$/);
 context.keys().forEach(context);
@@ -125,6 +128,7 @@ module.exports = function(config) {
     });
 };
 ```
+
 Follow tutorial here on configuring webpack to work with karma: http://bit.ly/2WW0sB6
 
 - 12 Make sure the path to the chrome binary is set in an environment variable. Add to ~/.bashrc
@@ -132,8 +136,63 @@ Follow tutorial here on configuring webpack to work with karma: http://bit.ly/2W
 ```export CHROME_BIN = '/usr/bin/chromium-browser
     export PATH=$PATH:$CHROME_BIN
 ```
- Save and on the terminal do
+
+Save and on the terminal do
 
 ```
 . ~/.bashrc
+```
+
+- 13 Install packages needed to watch over our files, recompile them and run the test when they change
+
+```
+npm i -D grunt grunt-cli grunt-contrib-watch grunt-ts grunt-karma
+```
+
+- 14 configure grunt through gruntfile.js
+
+```
+module.exports = function(grunt) {
+  grunt.initConfig({
+    pkg: grunt.file.readJSON("package.json"),
+
+    ts: {
+      default: {
+        tsconfig: true
+      },
+      options: {
+        fast: "never"
+      }
+    },
+    karma: {
+      unit: {
+        configFile: "tests/karma.conf.js",
+        background: true,
+        singleRun: false
+      }
+    },
+    watch: {
+      //run unit tests with karma (server needs to be already running)
+      karma: {
+        files: ['src/**/*.ts', 'tests/**/*.ts','dist/metabundle.js'],
+        tasks: ["ts","karma:unit:run"] //NOTE the :run flag
+      }
+    }
+  });
+  grunt.loadNpmTasks("grunt-karma");
+  grunt.registerTask('default', ['karma']);
+  grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.registerTask("default", ["watch"]);
+  grunt.loadNpmTasks("grunt-ts");
+  grunt.registerTask("default", ["ts"]);
+};
+
+```
+
+- 15 modify package.json to have the new tasks
+
+```
+"scripts": {
+    "watch": "grunt watch"
+},
 ```
